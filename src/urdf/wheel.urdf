@@ -31,7 +31,6 @@
                 <geometry>
                     <mesh filename="file://$(find arceus_description)/meshes/roleteteste.stl" scale="0.001 0.001 0.001"/>
                 </geometry>
-                <material name="green"/>
             </visual>
 
             <collision>
@@ -53,7 +52,6 @@
             </inertial>
         </link>
         <gazebo reference="roller${wheel}${suffix}_link">
-            <material>Gazebo/Green</material>
             <fdir1>1 0 0"</fdir1>
             <mu1>100</mu1>
             <mu2>100</mu2>
@@ -98,16 +96,24 @@
             <visual>
                 <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
                 <geometry>
-                    <!-- <mesh filename="file://$(find arceus_description)/meshes/rodateste.stl" scale="0.001 0.001 0.001"/> -->
-                    <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+                    <xacro:if value="$(arg use_omni_wheels)">
+                        <mesh filename="file://$(find arceus_description)/meshes/rodateste.stl" scale="0.001 0.001 0.001"/>
+                    </xacro:if>
+                    <xacro:unless value="$(arg use_omni_wheels)">
+                        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+                    </xacro:unless>
                 </geometry>
             </visual>
 
             <collision>
                 <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
                 <geometry>
-                    <!-- <mesh filename="file://$(find zeus_description)/meshes/wheel-collision.dae"/> -->
-                    <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+                    <xacro:if value="$(arg use_omni_wheels)">
+                        <mesh filename="file://$(find arceus_description)/meshes/rodateste.stl"/>
+                    </xacro:if>
+                    <xacro:unless value="$(arg use_omni_wheels)">
+                        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+                    </xacro:unless>
                 </geometry>
             </collision>
 
@@ -118,33 +124,35 @@
             </inertial>
         </link>
 
-        <!-- <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${3*pi/10}" suffix="1" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${13*pi/30}" suffix="2" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${17*pi/30}" suffix="3" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${7*pi/10}" suffix="4" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${5*pi/6}" suffix="5" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${29*pi/30}" suffix="6" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${11*pi/10}" suffix="7" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${37*pi/30}" suffix="8" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${41*pi/30}" suffix="9" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${3*pi/2}" suffix="10" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${49*pi/30}" suffix="11" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${53*pi/30}" suffix="12" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${19*pi/10}" suffix="13" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${61*pi/30}" suffix="14" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${13*pi/6}" suffix="15" wheel="${suffix}"/> -->
+        <xacro:if value="$(arg use_omni_wheels)">
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${3*pi/10}" suffix="1" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${13*pi/30}" suffix="2" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${17*pi/30}" suffix="3" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${7*pi/10}" suffix="4" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${5*pi/6}" suffix="5" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${29*pi/30}" suffix="6" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${11*pi/10}" suffix="7" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${37*pi/30}" suffix="8" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${41*pi/30}" suffix="9" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${3*pi/2}" suffix="10" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${49*pi/30}" suffix="11" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${53*pi/30}" suffix="12" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${19*pi/10}" suffix="13" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${61*pi/30}" suffix="14" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="1.0" theta="${13*pi/6}" suffix="15" wheel="${suffix}"/>
 
-        <!-- <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${45*pi/180}" suffix="-1" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${75*pi/180}" suffix="-2" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${105*pi/180}" suffix="-3" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${135*pi/180}" suffix="-4" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${165*pi/180}" suffix="-5" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${195*pi/180}" suffix="-6" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${225*pi/180}" suffix="-7" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${255*pi/180}" suffix="-8" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${285*pi/180}" suffix="-9" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${315*pi/180}" suffix="-10" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${345*pi/180}" suffix="-11" wheel="${suffix}"/>
-        <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${375*pi/180}" suffix="-12" wheel="${suffix}"/> -->
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${45*pi/180}" suffix="-1" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${75*pi/180}" suffix="-2" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${105*pi/180}" suffix="-3" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${135*pi/180}" suffix="-4" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${165*pi/180}" suffix="-5" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${195*pi/180}" suffix="-6" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${225*pi/180}" suffix="-7" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${255*pi/180}" suffix="-8" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${285*pi/180}" suffix="-9" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${315*pi/180}" suffix="-10" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${345*pi/180}" suffix="-11" wheel="${suffix}"/>
+            <xacro:insert_roller parent="wheel${suffix}_link" reflect="-1.0" theta="${375*pi/180}" suffix="-12" wheel="${suffix}"/>
+        </xacro:if>
     </xacro:macro>
 </robot>

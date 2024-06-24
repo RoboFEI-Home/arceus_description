@@ -6,6 +6,7 @@
             <robot_param>robot_description</robot_param>
             <robot_param_node>robot_state_publisher</robot_param_node>
             <parameters>$(find arceus_control)/config/omnidirectional_controller.yaml</parameters>
+            <parameters>$(find arceus_gazebo)/config/gaz_controller.yaml</parameters>
         </plugin>
         <plugin filename="libgazebo_ros_p3d.so" name="gazebo_ros_p3d" >
             <ros>
