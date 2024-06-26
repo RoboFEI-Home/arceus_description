@@ -2,7 +2,7 @@
 
 <robot name="arceus" xmlns:xacro="http://ros.org/wiki/xacro">
     <xacro:macro name="ros2_control_wheel_joint" params="suffix">
-        <joint name="wheel${suffix}_joint">
+        <joint name="wheel_${suffix}_joint">
             <command_interface name="velocity">
                 <param name="min">-10</param>
                 <param name="max">10</param>
@@ -27,13 +27,13 @@
         <ros2_control name="ArceusRobot" type="system">
             <hardware>
                 <plugin>arceus_omnidirectional_system/ArceusOmniSystemHardware</plugin>
-                <param name = "wheel1_name">wheel1_joint</param>
-                <param name = "wheel2_name">wheel2_joint</param>
-                <param name = "wheel3_name">wheel3_joint</param>
+                <param name = "wheel1_name">wheel_1_joint</param>
+                <param name = "wheel2_name">wheel_2_joint</param>
+                <param name = "wheel3_name">wheel_3_joint</param>
                 <param name = "loop_rate">50</param>
                 <param name = "device">/dev/ttyACM0</param>
-                <param name = "baud_rate">9600</param>
-                <param name = "timeout_ms">1500</param>
+                <param name = "baud_rate">57600</param>
+                <param name = "timeout_ms">1000</param>
                 <param name = "enc_pulses_per_rev">5</param>
             </hardware>
             <xacro:ros2_control_wheel_joint suffix="1"/>
