@@ -71,7 +71,7 @@
     <xacro:wheel parent="base_link" suffix="3" theta="${pi/3}" m="0.5" r="${wheel_radius}" h="${wheel_width}"/>
 
 	<!-- Lidar -->
-	<link name="lidar_link">
+	<link name="laser_frame">
 		<inertial>
 				<origin xyz="0 0 0" rpy="0 0 0"/>
 				<mass value="0.125"/>
@@ -93,13 +93,13 @@
 		</visual>
 	</link>
 
-	<joint name="lidar_joint" type="fixed">
+	<joint name="laser_joint" type="fixed">
   		<parent link="base_link"/>
-  		<child link="lidar_link"/>
-  		<origin xyz="0 0 ${(base_width/2)+0.0255}" rpy="0 0 0"/>
+  		<child link="laser_frame"/>
+  		<origin xyz="0 0 ${(base_width/2)+0.0255}" rpy="0 0 ${4*pi/3}"/>
 	</joint>
 	<!--Fazer alterações mais tarde por conta da geometria do lidar-->
-	<gazebo reference="lidar_link">
+	<gazebo reference="laser_frame">
   		<sensor name="lidar" type="ray">
     		<always_on>true</always_on>
     		<visualize>true</visualize>
@@ -129,7 +129,7 @@
 					<remapping>~/out:=scan</remapping>
 				</ros>
 				<output_type>sensor_msgs/LaserScan</output_type>
-				<frame_name>lidar_link</frame_name>
+				<frame_name>laser_frame</frame_name>
 			</plugin>
 		</sensor>
 	</gazebo>
