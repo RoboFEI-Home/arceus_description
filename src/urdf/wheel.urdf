@@ -77,7 +77,7 @@
         </link>
 
         <joint name="wheel${suffix}_joint" type="continuous">
-            <origin xyz="0.0 0.0 -${motor_shaft_length+wheel_width/2}" rpy="0.0 0.0 0.0"/>
+            <origin xyz="0.0 0.0 -${motor_shaft_length+wheel_width}" rpy="0.0 0.0 0.0"/>
             <parent link="motor_${suffix}_shaft_link"/>
             <child link="wheel${suffix}_link"/>
             <axis xyz="0.0 0.0 1.0"/>
